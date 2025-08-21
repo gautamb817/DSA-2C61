@@ -1,209 +1,174 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-// char choice='y';
-// string array[]={"create","display","insert","delete","search","exit"};
-// int option;
-// int main_arr[100];
-// int size=0;
-// int main(){
-//     while (choice == 'y'){
-//         cout << "what operation do you want to perform? enter number " << endl;
-//         for(int i=0;i<6;i++){
-//             cout << i+1 << " : " << array[i] << endl;
-//         }
-//         cin >> option;
-//         if (option<1 && option>6){
-//             cout << "enter valid input" << endl;
-//         }
-//         if (option==1){
-//             int n;
-//             cout << "enter size of array to be created" << endl;
-//             cin >> n;
-//             size=n;
-//             for(int i=0;i<n;i++){
-//                 int num;
-//                 cout << "enter input integers"<< endl;
-//                 cin >> num;
-//                 main_arr[i]=num;
-//             }
-//         }
-//         else if(option==2){
-//             for(int i=0;i<size;i++){
-//                 cout << main_arr[i]<<" ";
-//             }
-//             cout << endl;
-//             //choice='n';
-//         }
-//         else if(option==3){
-//             int num,pos;
-//             cout << "enter position"<<endl;
-//             cin >> pos;
-//             cout << "enter number to be inserted" << endl;
-//             cin >> num;
-//             for (int i=size;i>pos;i--){
-//                 main_arr[i]=main_arr[i-1];
-//             }
-//             main_arr[pos]=num;
-//             size++;
-//         }
-//         else if(option==4){
-//             int pos;
-//             cout << "enter pos to delete" << endl;
-//             cin >> pos;
-//             for(int i=pos;i<size;i++){
-//                 main_arr[i]=main_arr[i+1];
-//             }
-//             size--;
-//         }
-//         else if(option==5){
-//             int num;
-//             cout << "enter number to find" << endl;
-//             cin >> num;
-//             int found=0;
-//             for(int i=0;i<size;i++){
-//                 if(main_arr[i]==num){
-//                     found=1;
-//                     cout << "number found at " << i+1 <<"th position"<< endl;
-//                     break;
-//                 }
-                
-//             }
-//             if (found==0){
-//                     cout << "element not found";
-//                 }
-//         }
-//         else if(option==6){
-//             cout <<"thank you for your time!!";
-//             choice='n';
-//         }
-//     }
-// }
 
-// int main_arr[]={1,2,3,1,2,4,5,5,3,1,6,5,2,4};
+char contChoice = 'y';
+string menuOptions[] = {"create", "display", "insert", "remove", "search", "quit"};
+int userOption;
+int dataArray[100];
+int arrLength = 0;
 
-// void del(int array[],int size,int index){
-//     for(int i=index;i<size;i++){
-//         array[i]=array[i+1];
-//     }
-    
-// }
-// int main(){
-//     int size= sizeof(main_arr)/4;
-//     for (int i=0;i<size-1;i++){
-//         for(int j=i+1;j<size;j++){
-//             if (main_arr[i]==main_arr[j]){
-//                 del(main_arr,size,j);
-//                 size--;
-//             }
-//         }
-//     }
-//     for (int i=0;i<size;i++){
-//         cout << main_arr[i] << " ";
-//     }
-    
-// }
-
-//output: 10000
-
-// int arr[]={1,2,3,4,5};
-// int arr2[2][3]={{1,2,3},{4,5,6}};
-
-// int main(){
-//     for(int i=0;i<(sizeof(arr)/8);i++){
-//         int temp=arr[i];
-//         arr[i]=arr[sizeof(arr)/4-1-i];
-//         arr[sizeof(arr)/4-1-i]=temp;
-//     }
-//     for(int i=0;i<sizeof(arr)/4;i++){
-//         cout << arr[i] << " ";
-//     }
-//     cout << endl;
-//     for(int i=0;i<1;i++){
-//         for(int j=0;j<3;j++){
-//             int temp=arr2[i][j];
-//             arr2[i][j]=arr2[1-i][j];
-//             arr2[1-i][j]=temp;
-//         }
-//     }
-//     for(int i=0;i<2;i++){
-//         for(int j=0;j<1;j++){
-//             int x= arr2[i][3-1-j];
-//             arr2[i][3-1-j]=arr2[i][j];
-//             arr2[i][j]=x;
-//         }
-//     }
-//     for(int i=0;i<2;i++){
-//         for(int j=0;j<3;j++){
-//             cout << arr2[i][j] << " ";
-//         }
-//         cout << endl;
-//     }
-// }
-
-// int main(){
-//     int arr1[3][3]={{1,1,1},{1,1,1},{1,1,1}};
-//     int arr2[3][3]={{2,2,2},{2,2,2},{2,2,2}};
-//     int arr3[3][3];
-//     for (int i=0;i<3;i++){
-//         for (int j=0;j<3;j++){
-//             int sum=0;
-//             for (int k=0;k<3;k++){
-//                     sum+=arr1[i][k]*arr2[k][j];
-//             }
-//             arr3[i][j]=sum;
-//         }
-//     }
-//     for (int i=0;i<3;i++){
-//         for(int j=0;j<3;j++){
-//             cout << arr3[i][j]<<" ";
-//         }
-//         cout << endl;
-//     }
-// }
-// int main(){
-//     int arr3[3][3]={{1,2,3},{4,5,6},{7,8,9}};
-//     for(int i=0;i<3;i++){
-//         for(int j=i+1;j<3;j++){
-//             int temp=arr3[i][j];
-//             arr3[i][j]=arr3[j][i];
-//             arr3[j][i]=temp;
-//         }
-//     }
-//     for(int i=0;i<3;i++){
-//         for(int j=0;j<3;j++){
-//             cout << arr3[i][j]<<" ";
-//         }
-//         cout << endl;
-//     }
-// }
-int main(){
-    int arr3[3][3]={{1,2,3},{4,5,6},{7,8,9}};
-    int sum_cols[3];
-    int sum_rows[3];
-    for(int i=0;i<3;i++){
-        int sum=0;
-        for(int j=0;j<3;j++){
-            sum+=arr3[i][j];
+int main() {
+    while (contChoice == 'y') {
+        cout << "Select an operation by entering its number:" << endl;
+        for (int i = 0; i < 6; i++) {
+            cout << i + 1 << " : " << menuOptions[i] << endl;
         }
-        sum_rows[i]=sum;
-    }
-    for(int i=0;i<3;i++){
-        int sum=0;
-        for(int j=0;j<3;j++){
-            sum+=arr3[j][i];
+        cin >> userOption;
+
+        if (userOption < 1 || userOption > 6) {
+            cout << "Invalid input. Please try again." << endl;
         }
-        sum_cols[i]=sum;
+        else if (userOption == 1) {
+            int newSize;
+            cout << "Enter size of array to create: ";
+            cin >> newSize;
+            arrLength = newSize;
+            for (int i = 0; i < newSize; i++) {
+                int val;
+                cout << "Enter value " << i + 1 << ": ";
+                cin >> val;
+                dataArray[i] = val;
+            }
+        }
+        else if (userOption == 2) {
+            cout << "Array elements: ";
+            for (int i = 0; i < arrLength; i++) {
+                cout << dataArray[i] << " ";
+            }
+            cout << endl;
+        }
+        else if (userOption == 3) {
+            int newVal, pos;
+            cout << "Enter position to insert: ";
+            cin >> pos;
+            cout << "Enter number to insert: ";
+            cin >> newVal;
+            for (int i = arrLength; i > pos; i--) {
+                dataArray[i] = dataArray[i - 1];
+            }
+            dataArray[pos] = newVal;
+            arrLength++;
+        }
+        else if (userOption == 4) {
+            int pos;
+            cout << "Enter position to remove: ";
+            cin >> pos;
+            for (int i = pos; i < arrLength; i++) {
+                dataArray[i] = dataArray[i + 1];
+            }
+            arrLength--;
+        }
+        else if (userOption == 5) {
+            int searchVal;
+            cout << "Enter number to search: ";
+            cin >> searchVal;
+            bool found = false;
+            for (int i = 0; i < arrLength; i++) {
+                if (dataArray[i] == searchVal) {
+                    cout << "Number found at position " << i + 1 << endl;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                cout << "Number not found." << endl;
+            }
+        }
+        else if (userOption == 6) {
+            cout << "Exiting program. Goodbye!" << endl;
+            contChoice = 'n';
+        }
     }
-    for(int i=0;i<3;i++){
-        cout << sum_rows[i]<< " ";
+
+    
+    int dupArray[] = {10, 20, 10, 30, 20, 40, 50, 30, 60};
+    int dupSize = sizeof(dupArray) / sizeof(dupArray[0]);
+
+    auto removeAt = [&](int index) {
+        for (int i = index; i < dupSize; i++) {
+            dupArray[i] = dupArray[i + 1];
+        }
+    };
+
+    for (int i = 0; i < dupSize - 1; i++) {
+        for (int j = i + 1; j < dupSize; j++) {
+            if (dupArray[i] == dupArray[j]) {
+                removeAt(j);
+                dupSize--;
+            }
+        }
+    }
+
+    cout << "Array after removing duplicates: ";
+    for (int i = 0; i < dupSize; i++) {
+        cout << dupArray[i] << " ";
     }
     cout << endl;
-    for(int i=0;i<3;i++){
-        cout << sum_cols[i]<< " ";
+
+    
+    int nums[] = {11, 22, 33, 44, 55};
+    int len = sizeof(nums) / sizeof(nums[0]);
+    for (int i = 0; i < len / 2; i++) {
+        int temp = nums[i];
+        nums[i] = nums[len - 1 - i];
+        nums[len - 1 - i] = temp;
+    }
+
+    cout << "Reversed array: ";
+    for (int i = 0; i < len; i++) {
+        cout << nums[i] << " ";
     }
     cout << endl;
-    
-    
-    
 
+    
+    int mat[3][3] = {{2, 4, 6}, {8, 10, 12}, {14, 16, 18}};
+    for (int i = 0; i < 3; i++) {
+        for (int j = i + 1; j < 3; j++) {
+            int temp = mat[i][j];
+            mat[i][j] = mat[j][i];
+            mat[j][i] = temp;
+        }
+    }
+
+    cout << "Transpose of matrix:" << endl;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            cout << mat[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    
+    int arr3[3][3] = {{5, 7, 9}, {2, 4, 6}, {1, 3, 8}};
+    int rowSums[3], colSums[3];
+
+    for (int i = 0; i < 3; i++) {
+        int sum = 0;
+        for (int j = 0; j < 3; j++) {
+            sum += arr3[i][j];
+        }
+        rowSums[i] = sum;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        int sum = 0;
+        for (int j = 0; j < 3; j++) {
+            sum += arr3[j][i];
+        }
+        colSums[i] = sum;
+    }
+
+    cout << "Row sums: ";
+    for (int i = 0; i < 3; i++) {
+        cout << rowSums[i] << " ";
+    }
+    cout << endl;
+
+    cout << "Column sums: ";
+    for (int i = 0; i < 3; i++) {
+        cout << colSums[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
 }
