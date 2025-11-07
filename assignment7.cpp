@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+#include <climits>
 
 class node{
     public:
@@ -13,7 +14,8 @@ class node{
     }
 };
 
-
+static int f=1;
+static bool x=true;
 class binarysearchtree{
     private:
 
@@ -143,19 +145,95 @@ class binarysearchtree{
     if(n<x->data){
         x->left=inserthelper(n,x->left);
     }
-    else{
+    else if(n>x->data){
         x->right=inserthelper(n,x->right);
     }
     return x;
 
     }
 
+    node *deletenode(int n,node* root){
+        if(root){
+            if(n<root->data){
+                root->left=deletenode(n,root->left);
+                
+            }
+            else if(n>root->data){
+                root->right=deletenode(n,root->right);
+                
+            }
+            else{
+                if (root->left == nullptr && root->right == nullptr) {
+                    delete root;
+                    return nullptr;
+                } 
+                else if (root->left == nullptr) {
+                    node* temp = root->right;
+                    delete root;
+                    return temp;
+                } 
+                else if (root->right == nullptr) {
+                    node* temp = root->left;
+                    delete root;
+                    return temp;
+                } 
+                else {
+                    node* replace = minimumelement(root->right);
+                    root->data = replace->data;
+                    root->right = deletenode(replace->data, root->right);
+                }
+            
+            }
+            return root;
+        }
+        else{
+            f=0;
+            return nullptr;
+        }
+    }
+    int maxdepth(node *root){
+        if(root==nullptr){
+            return 0;
+        }
+        int left=maxdepth(root->left);
+        int right=maxdepth(root->right);
+        return 1+ (left>right ? left :right);
+    }
+    int mindepth(node *root){
+        if(root==nullptr){
+            return 0;
+        }
+        int left=mindepth(root->left);
+        int right=mindepth(root->right);
+        return 1+ (left<right ? left :right);
+    }
 
+    bool isBSTUtil(node* root, int minVal, int maxVal) {
+        if (root == nullptr)
+            return true;
+        
+        if (root->data <= minVal || root->data >= maxVal)
+            return false;
 
+        return isBSTUtil(root->left, minVal, root->data) && isBSTUtil(root->right, root->data, maxVal);
+    }
+    bool isBST(node* root) {
+    return isBSTUtil(root, INT_MIN, INT_MAX);
+    }
     node *root;
 
     public:
 
+    void delnode(int n){
+        node *x=deletenode(n,root);
+        if(f){
+            cout << "successfully deleted"<<endl;
+            preorder(root);
+        }
+        else{
+            cout << "not found" << endl;
+        }
+    }
     void successor(int n){
         node *ans=successorhelper(n,root);
         if(ans){
@@ -215,6 +293,18 @@ class binarysearchtree{
         node *x=minimumelement(root);
         cout << x->data << " is minimum"<< endl;
     }
+    void findmaxdepth(){
+        int x=maxdepth(root);
+        cout << x << " is max depth"<< endl;
+    }
+    void findmindepth(){
+        int x=mindepth(root);
+        cout << x << " is min depth"<< endl;
+    }
+    bool isBinarysearchtree() {
+    return isBSTUtil(root, INT_MIN, INT_MAX);
+    }
+
 };
 //Q1
 // int main(){
@@ -233,21 +323,58 @@ class binarysearchtree{
 //     b1.displaypost();
 //     cout << endl;
 // }
+// Q2
+// int main(){
+//     binarysearchtree b1;
+//     b1.insert(70);
+//     b1.insert(90);
+//     b1.insert(85);
+//     b1.insert(100);
+//     b1.insert(30);
+//     b1.insert(60);
+//     b1.insert(10);
+//     b1.displaypre();
+//     cout << endl;
+//     // b1.searchitem(70);
+//     // b1.searchitemnr(100);
+//     // b1.maxelement();
+//     // b1.minelement();
+//     b1.successor(100);
+//     b1.predecessor(10);
+// }
+//Q3
+// int main(){
+//     binarysearchtree b1;
+//     b1.insert(100);
+//     b1.insert(10);
+//     b1.insert(110);
+//     b1.insert(105);
+//     b1.insert(140);
+//     b1.insert(125);
+//     b1.insert(135);
+//     b1.insert(120);
+//     b1.displaypre();
+//     cout << endl;
+//     b1.delnode(190);
+//     b1.findmaxdepth();
+//     b1.findmindepth();
+// }
+//Q4
 int main(){
     binarysearchtree b1;
-    b1.insert(70);
-    b1.insert(90);
-    b1.insert(85);
     b1.insert(100);
-    b1.insert(30);
-    b1.insert(60);
+    b1.insert(200);
+    b1.insert(150);
+    b1.insert(50);
+    b1.insert(250);
+    b1.insert(170);
     b1.insert(10);
-    b1.displaypre();
-    cout << endl;
-    // b1.searchitem(70);
-    // b1.searchitemnr(100);
-    // b1.maxelement();
-    // b1.minelement();
-    b1.successor(100);
-    b1.predecessor(10);
+    b1.insert(90);
+    if(b1.isBinarysearchtree()){
+        cout << "yes"<<endl;
+    }
+    else{
+        cout << "no"<<endl;
+    }
+
 }
