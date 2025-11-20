@@ -360,21 +360,177 @@ class binarysearchtree{
 //     b1.findmindepth();
 // }
 //Q4
-int main(){
-    binarysearchtree b1;
-    b1.insert(100);
-    b1.insert(200);
-    b1.insert(150);
-    b1.insert(50);
-    b1.insert(250);
-    b1.insert(170);
-    b1.insert(10);
-    b1.insert(90);
-    if(b1.isBinarysearchtree()){
-        cout << "yes"<<endl;
-    }
-    else{
-        cout << "no"<<endl;
+// int main(){
+//     binarysearchtree b1;
+//     b1.insert(100);
+//     b1.insert(200);
+//     b1.insert(150);
+//     b1.insert(50);
+//     b1.insert(250);
+//     b1.insert(170);
+//     b1.insert(10);
+//     b1.insert(90);
+//     if(b1.isBinarysearchtree()){
+//         cout << "yes"<<endl;
+//     }
+//     else{
+//         cout << "no"<<endl;
+//     }
+
+// }
+//Q5 and Q6
+
+class Heap {
+private:
+    int *arr;
+    int size;
+    int capacity;
+
+    int parent(int i) { return (i - 1) / 2; }
+    int left(int i) { return 2 * i + 1; }
+    int right(int i) { return 2 * i + 2; }
+
+    
+    void maxHeapify(int i) {
+        int largest = i;
+        int l = left(i);
+        int r = right(i);
+
+        if (l < size && arr[l] > arr[largest]) largest = l;
+        if (r < size && arr[r] > arr[largest]) largest = r;
+
+        if (largest != i) {
+            swap(arr[i], arr[largest]);
+            maxHeapify(largest);
+        }
     }
 
+    void minHeapify(int i) {
+        int smallest = i;
+        int l = left(i);
+        int r = right(i);
+
+        if (l < size && arr[l] < arr[smallest]) smallest = l;
+        if (r < size && arr[r] < arr[smallest]) smallest = r;
+
+        if (smallest != i) {
+            swap(arr[i], arr[smallest]);
+            minHeapify(smallest);
+        }
+    }
+
+public:
+    Heap(int cap = 100) {
+        arr = new int[cap];
+        size = 0;
+        capacity = cap;
+    }
+
+    void insert(int val) {
+        if (size == capacity) {
+            cout << "Heap full!\n";
+            return;
+        }
+        arr[size] = val;
+        size++;
+
+        int i = size - 1;
+        while (i > 0 && arr[parent(i)] < arr[i]) {
+            swap(arr[i], arr[parent(i)]);
+            i = parent(i);
+        }
+    }
+
+    int extractMax() {
+        if (size <= 0) return -1;
+        if (size == 1) return arr[--size];
+
+        int root = arr[0];
+        arr[0] = arr[size - 1];
+        size--;
+
+        maxHeapify(0);
+        return root;
+    }
+
+    void buildMaxHeap() {
+        for (int i = size / 2 - 1; i >= 0; i--)
+            maxHeapify(i);
+    }
+
+    void buildMinHeap() {
+        for (int i = size / 2 - 1; i >= 0; i--)
+            minHeapify(i);
+    }
+
+    void heapSortDecreasing() {
+        int originalSize = size;
+
+        buildMaxHeap();   
+        cout << "Sorted Decreasing: ";
+
+        for (int i = size - 1; i >= 0; i--) {
+            cout << arr[0] << " ";  
+            swap(arr[0], arr[size - 1]);
+            size--;
+            maxHeapify(0);
+        }
+        cout << endl;
+
+        size = originalSize;
+        buildMaxHeap(); 
+    }
+
+    void heapSortIncreasing() {
+        int originalSize = size;
+
+        buildMinHeap();  
+
+        cout << "Sorted Inreasing: ";
+
+        for (int i = size - 1; i >= 0; i--) {
+            cout << arr[0] << " "; 
+            swap(arr[0], arr[size - 1]);
+            size--;
+            minHeapify(0);
+        }
+        cout << endl;
+
+        size = originalSize;
+        buildMinHeap(); 
+    }
+
+    void printHeap() {
+        for (int i = 0; i < size; i++)
+            cout << arr[i] << " ";
+        cout << endl;
+    }
+};
+
+int main() {
+
+    Heap pq;
+
+    pq.insert(40);
+    pq.insert(10);
+    pq.insert(30);
+    pq.insert(80);
+    pq.insert(50);
+
+    cout << "Heap: ";
+    pq.printHeap();
+
+    cout << "Extracted from PQ: " << pq.extractMax() << endl;
+
+    Heap sorter;
+    sorter.insert(40);
+    sorter.insert(10);
+    sorter.insert(30);
+    sorter.insert(80);
+    sorter.insert(50);
+
+    sorter.heapSortIncreasing();  
+    sorter.heapSortDecreasing();  
+
+    return 0;
 }
